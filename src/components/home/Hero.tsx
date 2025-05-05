@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { MapPin, Heart, Shield } from 'lucide-react';
+import { MapPin, Shield } from 'lucide-react';
 
 const Hero = () => {
   return (
@@ -31,7 +31,11 @@ const Hero = () => {
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="flex items-center">
               <div className="bg-white p-3 rounded-full shadow-md mr-4">
-                <Heart className="h-8 w-8 text-sacred-primary" />
+                <img 
+                  src="/lovable-uploads/961c35cf-5aa7-44e4-9c4f-998098136bd9.png" 
+                  alt="Sacred Routes Logo" 
+                  className="h-8 w-8"
+                />
               </div>
               <div>
                 <h3 className="font-medium text-sacred-dark">Community Support</h3>
@@ -62,8 +66,8 @@ const Hero = () => {
         <div className="relative">
           <div className="bg-white p-4 rounded-xl shadow-xl">
             <img 
-              src="https://images.unsplash.com/photo-1499562917375-e3307341ed70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-              alt="Elderly pilgrims enjoying their journey together" 
+              src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+              alt="Elderly pilgrims on a scenic mountain journey" 
               className="rounded-lg w-full h-96 object-cover"
               loading="lazy"
             />

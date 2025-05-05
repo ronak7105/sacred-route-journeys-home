@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Heart, MapPin, User, LogIn, PhoneCall } from 'lucide-react';
+import { User, LogIn, PhoneCall } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import EmergencyModal from '../ui/emergency-modal';
 
@@ -22,7 +22,11 @@ const Navbar = () => {
       <div className="container-page flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2" aria-label="Sacred Routes home">
-          <Heart className="h-10 w-10 text-sacred-primary" />
+          <img 
+            src="/lovable-uploads/961c35cf-5aa7-44e4-9c4f-998098136bd9.png" 
+            alt="Sacred Routes Logo" 
+            className="h-10 w-10"
+          />
           <span className="text-2xl font-bold text-sacred-dark">Sacred Routes</span>
         </Link>
 

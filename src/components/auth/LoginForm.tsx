@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Heart, LogIn } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import useAuth from '@/hooks/useAuth';
 
@@ -49,7 +49,11 @@ const LoginForm = () => {
     <Card className="w-full max-w-md shadow-lg">
       <CardHeader className="bg-sacred-primary text-white rounded-t-lg text-center py-8">
         <div className="flex justify-center mb-3">
-          <Heart className="h-14 w-14" />
+          <img 
+            src="/lovable-uploads/961c35cf-5aa7-44e4-9c4f-998098136bd9.png" 
+            alt="Sacred Routes Logo" 
+            className="h-14 w-14"
+          />
         </div>
         <CardTitle className="text-3xl font-bold">Welcome Back</CardTitle>
         <CardDescription className="text-xl text-white/90 mt-2">
