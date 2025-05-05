@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,16 +53,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+        // Custom colors for Sacred Routes
+        sacred: {
+          primary: '#2A6877', // Deep teal
+          secondary: '#85B09A', // Sage green
+          accent: '#D68C45', // Terracotta
+          light: '#F2F8F8', // Very light blue-tint
+          dark: '#2F4858', // Dark blue-gray
+        }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -89,7 +88,22 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+			},
+      fontSize: {
+        // Larger font sizes for elderly accessibility
+        'base': '18px',
+        'lg': '20px',
+        'xl': '24px',
+        '2xl': '28px',
+        '3xl': '32px',
+        '4xl': '36px',
+        '5xl': '48px',
+      },
+      spacing: {
+        // Enhanced spacing for better clickable/touchable areas
+        'btn': '3rem',
+        'input': '3.5rem',
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
