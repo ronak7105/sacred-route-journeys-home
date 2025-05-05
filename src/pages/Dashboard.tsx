@@ -1,13 +1,25 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { MapPin, User, Calendar, Bus } from 'lucide-react';
+import { MapPin, User, Calendar, Bus, PhoneCall, List, X, Pen, Text } from 'lucide-react';
+import EmergencyModal from '@/components/ui/emergency-modal';
+import ItineraryModal from '@/components/ui/itinerary-modal';
+import EditProfileModal from '@/components/ui/edit-profile-modal';
+import ReviewModal from '@/components/ui/review-modal';
+import { toast } from '@/hooks/use-toast';
 
 const Dashboard = () => {
-  // This would be fetched from an API in a real implementation
+  // States for modals
+  const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
+  const [isItineraryModalOpen, setIsItineraryModalOpen] = useState(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [selectedTripForReview, setSelectedTripForReview] = useState<string | null>(null);
+
+  // Sample data - would be fetched from API in real app
   const userData = {
     name: "Rajesh Sharma",
     age: 68,
@@ -27,8 +39,10 @@ const Dashboard = () => {
         phone: "+91 98765 43210"
       },
       bus: {
+        driver: "Mahesh Singh",
         number: "UP 70 AB 1234",
-        type: "Luxury AC Sleeper"
+        type: "Luxury AC Sleeper",
+        phone: "+91 77777 88888"
       }
     }
   ];
@@ -42,8 +56,10 @@ const Dashboard = () => {
       phone: "+91 87654 32109"
     },
     bus: {
+      driver: "Ramesh Kumar",
       number: "UK 07 CD 5678",
-      type: "Premium AC"
+      type: "Premium AC",
+      phone: "+91 66666 77777"
     },
     latitude: 29.9457,
     longitude: 78.1642
@@ -58,6 +74,73 @@ const Dashboard = () => {
       rating: 4.8,
     }
   ];
+
+  const sampleItinerary = [
+    {
+      day: 1,
+      title: "Arrival in Varanasi",
+      activities: [
+        "Welcome ceremony at hotel",
+        "Evening Ganga Aarti at Dashashwamedh Ghat", 
+        "Welcome dinner with fellow pilgrims"
+      ],
+      meals: ["Dinner"],
+      accommodation: "Hotel Ganges View, Varanasi"
+    },
+    {
+      day: 2, 
+      title: "Sacred Temples Tour",
+      activities: [
+        "Early morning boat ride on the Ganges",
+        "Visit to Kashi Vishwanath Temple",
+        "Lunch at local vegetarian restaurant",
+        "Afternoon visit to Sankat Mochan Hanuman Temple"
+      ],
+      meals: ["Breakfast", "Lunch", "Dinner"],
+      accommodation: "Hotel Ganges View, Varanasi"
+    },
+    {
+      day: 3,
+      title: "Sarnath Excursion",
+      activities: [
+        "Visit to Sarnath, where Buddha gave his first sermon",
+        "Tour of Archaeological Museum",
+        "Meditation session at the Mulagandha Kuti Vihar"
+      ],
+      meals: ["Breakfast", "Lunch", "Dinner"],
+      accommodation: "Hotel Ganges View, Varanasi"
+    }
+  ];
+
+  const handleCancelBooking = (tripId: number) => {
+    toast({
+      title: "Booking Cancelled",
+      description: "Your booking has been successfully cancelled. A refund will be processed within 7 business days.",
+      duration: 5000,
+    });
+  };
+
+  const handleViewItinerary = () => {
+    setIsItineraryModalOpen(true);
+  };
+
+  const handleEditProfile = () => {
+    setIsEditProfileModalOpen(true);
+  };
+
+  const handleProfileSave = (updatedData: any) => {
+    // Would update user data in a real app
+    toast({
+      title: "Profile Updated",
+      description: "Your profile information has been successfully updated.",
+      duration: 3000,
+    });
+  };
+
+  const handleLeaveReview = (destination: string) => {
+    setSelectedTripForReview(destination);
+    setIsReviewModalOpen(true);
+  };
 
   return (
     <Layout>
@@ -90,7 +173,9 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="mt-6">
-                  <Button className="w-full text-lg py-6">Edit Profile</Button>
+                  <Button className="w-full text-lg py-6" onClick={handleEditProfile}>
+                    <Pen className="mr-2 h-5 w-5" /> Edit Profile
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -140,6 +225,16 @@ const Dashboard = () => {
                                   <span>{currentTrip.guide.phone}</span>
                                 </div>
                               </div>
+                              <div className="mt-4">
+                                <Button 
+                                  variant="outline" 
+                                  className="w-full text-lg"
+                                  onClick={() => setIsEmergencyModalOpen(true)}
+                                >
+                                  <PhoneCall className="mr-2 h-5 w-5" />
+                                  Call Guide
+                                </Button>
+                              </div>
                             </div>
                             
                             <div className="bg-sacred-secondary/20 p-6 rounded-lg">
@@ -153,11 +248,32 @@ const Dashboard = () => {
                                   <span className="font-medium">Bus Type:</span>
                                   <span>{currentTrip.bus.type}</span>
                                 </div>
+                                <div className="flex justify-between">
+                                  <span className="font-medium">Driver:</span>
+                                  <span>{currentTrip.bus.driver}</span>
+                                </div>
+                              </div>
+                              <div className="mt-4">
+                                <Button 
+                                  variant="outline" 
+                                  className="w-full text-lg"
+                                  onClick={() => setIsEmergencyModalOpen(true)}
+                                >
+                                  <PhoneCall className="mr-2 h-5 w-5" />
+                                  Call Bus Driver
+                                </Button>
                               </div>
                             </div>
                           </div>
                           
-                          <Button size="lg" className="w-full text-lg py-6">Contact Emergency Support</Button>
+                          <Button 
+                            size="lg" 
+                            className="w-full text-lg py-6"
+                            onClick={() => setIsEmergencyModalOpen(true)}
+                          >
+                            <PhoneCall className="mr-2 h-6 w-6" />
+                            Contact Emergency Support
+                          </Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -200,13 +316,26 @@ const Dashboard = () => {
                                 <h4 className="text-xl font-medium mb-3">Transportation</h4>
                                 <p className="text-lg"><span className="font-medium">Bus Number:</span> {trip.bus.number}</p>
                                 <p className="text-lg"><span className="font-medium">Bus Type:</span> {trip.bus.type}</p>
+                                <p className="text-lg"><span className="font-medium">Driver:</span> {trip.bus.driver}</p>
                               </div>
                             </div>
                             <div className="flex justify-between">
-                              <Button variant="outline" size="lg" className="text-lg">
+                              <Button 
+                                variant="outline" 
+                                size="lg" 
+                                className="text-lg"
+                                onClick={handleViewItinerary}
+                              >
+                                <List className="mr-2 h-5 w-5" />
                                 View Itinerary
                               </Button>
-                              <Button variant="destructive" size="lg" className="text-lg">
+                              <Button 
+                                variant="destructive" 
+                                size="lg" 
+                                className="text-lg"
+                                onClick={() => handleCancelBooking(trip.id)}
+                              >
+                                <X className="mr-2 h-5 w-5" />
                                 Cancel Booking
                               </Button>
                             </div>
@@ -252,10 +381,21 @@ const Dashboard = () => {
                           </CardHeader>
                           <CardContent>
                             <div className="flex space-x-4">
-                              <Button variant="outline" size="lg" className="text-lg">
+                              <Button 
+                                variant="outline" 
+                                size="lg" 
+                                className="text-lg"
+                                onClick={handleViewItinerary}
+                              >
+                                <List className="mr-2 h-5 w-5" />
                                 View Details
                               </Button>
-                              <Button size="lg" className="text-lg">
+                              <Button 
+                                size="lg" 
+                                className="text-lg"
+                                onClick={() => handleLeaveReview(trip.destination)}
+                              >
+                                <Text className="mr-2 h-5 w-5" />
                                 Leave Review
                               </Button>
                             </div>
@@ -283,6 +423,35 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
+      
+      {/* Modals */}
+      <EmergencyModal 
+        isOpen={isEmergencyModalOpen}
+        onClose={() => setIsEmergencyModalOpen(false)}
+        guide={currentTrip?.guide}
+        bus={currentTrip?.bus}
+      />
+      
+      <ItineraryModal 
+        isOpen={isItineraryModalOpen}
+        onClose={() => setIsItineraryModalOpen(false)}
+        pilgrimageName="Varanasi Spiritual Journey"
+        duration="7 Days"
+        itinerary={sampleItinerary}
+      />
+      
+      <EditProfileModal 
+        isOpen={isEditProfileModalOpen}
+        onClose={() => setIsEditProfileModalOpen(false)}
+        userData={userData}
+        onSave={handleProfileSave}
+      />
+      
+      <ReviewModal 
+        isOpen={isReviewModalOpen}
+        onClose={() => setIsReviewModalOpen(false)}
+        pilgrimageName={selectedTripForReview || ""}
+      />
     </Layout>
   );
 };

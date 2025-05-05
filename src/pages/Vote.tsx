@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Heart, Vote } from 'lucide-react';
+import { Heart, Vote as VoteIcon } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from '@/hooks/use-toast';
+import SuggestPilgrimageModal from '@/components/ui/suggest-pilgrimage-modal';
 
 const VotePage = () => {
   // This would be fetched from an API in a real implementation
@@ -47,20 +50,42 @@ const VotePage = () => {
   ]);
 
   const [votedFor, setVotedFor] = useState<number | null>(null);
+  const [isSuggestModalOpen, setIsSuggestModalOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   const handleVote = (id: number) => {
+    if (!isLoggedIn) {
+      toast({
+        title: "Login Required",
+        description: "Please log in to vote on pilgrimages.",
+        variant: "destructive",
+        duration: 5000,
+      });
+      return;
+    }
+    
     if (votedFor === id) {
       // User is un-voting
       setDestinations(destinations.map(dest => 
         dest.id === id ? { ...dest, votes: dest.votes - 1 } : dest
       ));
       setVotedFor(null);
+      toast({
+        title: "Vote Removed",
+        description: "Your vote has been removed.",
+        duration: 3000,
+      });
     } else if (votedFor === null) {
       // User is voting for the first time
       setDestinations(destinations.map(dest => 
         dest.id === id ? { ...dest, votes: dest.votes + 1 } : dest
       ));
       setVotedFor(id);
+      toast({
+        title: "Vote Recorded",
+        description: "Your vote has been recorded. Thank you!",
+        duration: 3000,
+      });
     } else {
       // User is changing their vote
       setDestinations(destinations.map(dest => 
@@ -68,7 +93,26 @@ const VotePage = () => {
         dest.id === votedFor ? { ...dest, votes: dest.votes - 1 } : dest
       ));
       setVotedFor(id);
+      toast({
+        title: "Vote Changed",
+        description: "Your vote has been updated to the new selection.",
+        duration: 3000,
+      });
     }
+  };
+
+  const handleSuggestPilgrimage = () => {
+    if (!isLoggedIn) {
+      toast({
+        title: "Login Required",
+        description: "Please log in to suggest new pilgrimages.",
+        variant: "destructive",
+        duration: 5000,
+      });
+      return;
+    }
+    
+    setIsSuggestModalOpen(true);
   };
 
   return (
@@ -113,7 +157,7 @@ const VotePage = () => {
                     className={`w-full text-lg py-6 ${votedFor === destination.id ? 'bg-sacred-secondary' : ''}`}
                     onClick={() => handleVote(destination.id)}
                   >
-                    <Vote className="mr-2 h-5 w-5" />
+                    <VoteIcon className="mr-2 h-5 w-5" />
                     {votedFor === destination.id ? 'Your Vote' : 'Vote for this destination'}
                   </Button>
                 </CardFooter>
@@ -125,12 +169,21 @@ const VotePage = () => {
             <p className="text-lg text-gray-600 mb-4">
               Don't see a destination you'd like to visit?
             </p>
-            <Button size="lg" className="text-lg py-6">
+            <Button 
+              size="lg" 
+              className="text-lg py-6"
+              onClick={handleSuggestPilgrimage}
+            >
               <Heart className="mr-2 h-5 w-5" /> Suggest a Pilgrimage Site
             </Button>
           </div>
         </div>
       </section>
+      
+      <SuggestPilgrimageModal
+        isOpen={isSuggestModalOpen}
+        onClose={() => setIsSuggestModalOpen(false)}
+      />
     </Layout>
   );
 };

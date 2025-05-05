@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Heart, MapPin, User, LogIn } from 'lucide-react';
+import { Heart, MapPin, User, LogIn, PhoneCall } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import EmergencyModal from '../ui/emergency-modal';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -176,9 +178,21 @@ const Navbar = () => {
       </div>
 
       {/* Emergency Help Button */}
-      <button className="emergency-btn">
-        Emergency Help
+      <button 
+        className="emergency-btn fixed bottom-4 right-4 bg-red-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center space-x-2 hover:bg-red-700 transition-colors z-50"
+        onClick={() => setIsEmergencyModalOpen(true)}
+      >
+        <PhoneCall className="h-5 w-5" />
+        <span className="font-bold">Emergency Help</span>
       </button>
+      
+      {/* Emergency Modal */}
+      <EmergencyModal 
+        isOpen={isEmergencyModalOpen}
+        onClose={() => setIsEmergencyModalOpen(false)}
+        guide={{ name: "Anita Singh", phone: "+91 98765 43210" }}
+        bus={{ driver: "Rajesh Kumar", phone: "+91 87654 32109" }}
+      />
     </nav>
   );
 };
