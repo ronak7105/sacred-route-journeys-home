@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { Heart, LogIn } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import useAuth from '@/hooks/useAuth';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,9 +25,8 @@ const LoginForm = () => {
     // This is a mock authentication - in a real app, you'd connect to a backend
     setTimeout(() => {
       if (email && password) {
-        // Store in localStorage to persist across page refreshes
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userEmail', email);
+        // Use the login method from useAuth
+        login(email);
         
         toast({
           title: "Login Successful",

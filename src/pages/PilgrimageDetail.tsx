@@ -85,11 +85,17 @@ const PilgrimageDetail = () => {
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             {/* Image Gallery */}
             <div className="relative h-[400px] md:h-[500px]">
-              <img 
-                src={pilgrimage.images[currentImageIndex]}
-                alt={`${pilgrimage.name} - Image ${currentImageIndex + 1}`}
-                className="w-full h-full object-cover"
-              />
+              {pilgrimage.images && pilgrimage.images.length > 0 && (
+                <img 
+                  src={pilgrimage.images[currentImageIndex]}
+                  alt={`${pilgrimage.name} - Image ${currentImageIndex + 1}`}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    console.error("Image failed to load:", pilgrimage.images[currentImageIndex]);
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1524492514790-1377e5612d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+                  }}
+                />
+              )}
               
               {/* Image Navigation Controls */}
               <div className="absolute inset-0 flex items-center justify-between p-4">
@@ -116,7 +122,7 @@ const PilgrimageDetail = () => {
               
               {/* Image Counter */}
               <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full">
-                {currentImageIndex + 1} / {pilgrimage.images.length}
+                {currentImageIndex + 1} / {pilgrimage.images?.length || 0}
               </div>
             </div>
             
