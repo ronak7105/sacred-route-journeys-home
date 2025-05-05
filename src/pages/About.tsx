@@ -1,119 +1,184 @@
 
 import React from 'react';
 import Layout from '@/components/layout/Layout';
+import { MapPin, Phone, Mail, Heart, Users, Shield } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-const AboutUs = () => {
+const About = () => {
   return (
     <Layout>
-      <section className="py-16 bg-sacred-light min-h-screen">
+      <div className="py-16">
         <div className="container-page">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-sacred-dark mb-4">About Sacred Routes</h1>
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-sacred-dark">About Sacred Routes</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Dedicated to helping elderly travelers experience the spiritual journeys they've always dreamed of, with safety and community at the heart of everything we do.
+              Creating meaningful pilgrimage experiences for elderly travelers since 2010
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
-            <div>
-              <h2 className="text-3xl font-bold text-sacred-dark mb-6">Our Mission</h2>
-              <p className="text-lg text-gray-600 mb-4">
-                Sacred Routes was founded with a simple yet powerful mission: to make the spiritual pilgrimages of India accessible to elderly travelers who might otherwise miss these transformative experiences.
+          {/* Mission & Vision */}
+          <div className="grid md:grid-cols-2 gap-12 mb-20">
+            <div className="bg-sacred-light p-8 rounded-xl shadow-md">
+              <h2 className="text-3xl font-bold mb-4 text-sacred-dark">Our Mission</h2>
+              <p className="text-lg text-gray-700 mb-6">
+                To create accessible, meaningful pilgrimage experiences that cater specifically to the needs and pace of elderly travelers, allowing them to connect deeply with their faith while ensuring safety and comfort.
               </p>
-              <p className="text-lg text-gray-600 mb-4">
-                We believe that age should never be a barrier to spiritual growth and adventure. Our carefully designed journeys prioritize safety, comfort, and authentic experiences while fostering a sense of community among like-minded pilgrims.
-              </p>
-              <p className="text-lg text-gray-600">
-                Through our guided pilgrimages, we help connect our travelers not only to sacred sites but also to themselves and to each other, creating memories and spiritual connections that last a lifetime.
-              </p>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <span className="bg-sacred-primary h-6 w-6 rounded-full flex items-center justify-center text-white font-bold mr-3 mt-1 flex-shrink-0">✓</span>
+                  <span className="text-gray-700">Specialized guides trained in elder care</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="bg-sacred-primary h-6 w-6 rounded-full flex items-center justify-center text-white font-bold mr-3 mt-1 flex-shrink-0">✓</span>
+                  <span className="text-gray-700">24/7 medical support on all journeys</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="bg-sacred-primary h-6 w-6 rounded-full flex items-center justify-center text-white font-bold mr-3 mt-1 flex-shrink-0">✓</span>
+                  <span className="text-gray-700">Accessible accommodations and transportation</span>
+                </li>
+              </ul>
             </div>
-            <div className="rounded-xl overflow-hidden shadow-xl">
-              <img 
-                src="https://images.unsplash.com/photo-1594627882604-a9475cce2eb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Elderly pilgrims at a sacred site in India" 
-                className="w-full h-full object-cover"
-              />
+            
+            <div className="bg-sacred-dark p-8 rounded-xl shadow-md text-white">
+              <h2 className="text-3xl font-bold mb-4 text-sacred-secondary">Our Vision</h2>
+              <p className="text-lg mb-6">
+                We envision a world where age is never a barrier to spiritual journeys. Sacred Routes aims to become the global leader in accessible pilgrimage experiences, known for our commitment to dignity, safety, and meaningful connections.
+              </p>
+              <div className="bg-sacred-primary/20 p-4 rounded-lg border border-sacred-primary/30">
+                <h3 className="text-xl font-medium mb-2 text-sacred-secondary">Our Impact</h3>
+                <p>
+                  Since our founding, we've helped over 15,000 elderly pilgrims from across India connect with their faith through safe, accessible journeys to sacred sites.
+                </p>
+              </div>
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-sacred-dark mb-4">Safety First</h3>
-              <p className="text-lg text-gray-600">
-                Every aspect of our pilgrimages is designed with the safety of our elderly travelers in mind. From accessible accommodations to medical support on standby, we've thought of everything so you don't have to worry.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-sacred-dark mb-4">Community Travel</h3>
-              <p className="text-lg text-gray-600">
-                Travel with like-minded individuals who share your spiritual interests. Our small groups foster meaningful connections and provide mutual support throughout the journey.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-sacred-dark mb-4">Authentic Experiences</h3>
-              <p className="text-lg text-gray-600">
-                We go beyond tourist attractions to provide genuine spiritual experiences, led by knowledgeable guides who understand both the sacred significance and the needs of elderly travelers.
-              </p>
-            </div>
-          </div>
-          
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-sacred-dark mb-6 text-center">How We Work</h2>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <ol className="space-y-6">
-                <li className="flex">
-                  <span className="bg-sacred-primary text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mr-4 flex-shrink-0">1</span>
-                  <div>
-                    <h3 className="text-xl font-bold text-sacred-dark mb-2">Careful Selection of Sacred Sites</h3>
-                    <p className="text-lg text-gray-600">
-                      We research and select sites that offer profound spiritual experiences while being accessible to elderly travelers. Each pilgrimage is tested for safety, comfort, and meaningful engagement before being offered to our community.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex">
-                  <span className="bg-sacred-primary text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mr-4 flex-shrink-0">2</span>
-                  <div>
-                    <h3 className="text-xl font-bold text-sacred-dark mb-2">Specialized Guides and Support Staff</h3>
-                    <p className="text-lg text-gray-600">
-                      Our guides are not only knowledgeable about the spiritual significance of each site but are also trained to support elderly travelers. Medical professionals accompany each journey to ensure immediate care if needed.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex">
-                  <span className="bg-sacred-primary text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mr-4 flex-shrink-0">3</span>
-                  <div>
-                    <h3 className="text-xl font-bold text-sacred-dark mb-2">Family Involvement and Transparency</h3>
-                    <p className="text-lg text-gray-600">
-                      We believe in keeping families connected. Our tracking systems allow family members to follow the journey, while our communication platforms ensure everyone stays connected throughout the pilgrimage.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex">
-                  <span className="bg-sacred-primary text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mr-4 flex-shrink-0">4</span>
-                  <div>
-                    <h3 className="text-xl font-bold text-sacred-dark mb-2">Community Input and Evolution</h3>
-                    <p className="text-lg text-gray-600">
-                      We constantly evolve based on feedback from our travelers. Our voting system for new destinations ensures that we're always offering pilgrimages that our community is eager to experience.
-                    </p>
-                  </div>
-                </li>
-              </ol>
+          {/* Our Story */}
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold mb-6 text-sacred-dark text-center">Our Story</h2>
+            <div className="bg-white shadow-xl rounded-xl overflow-hidden">
+              <div className="grid md:grid-cols-5">
+                <div className="md:col-span-2 bg-sacred-primary h-full flex items-center justify-center p-8">
+                  <Heart className="text-white h-40 w-40" />
+                </div>
+                <div className="md:col-span-3 p-8">
+                  <p className="text-lg text-gray-700 mb-6">
+                    Sacred Routes was founded in 2010 by Priya Sharma after witnessing her elderly parents' struggles to complete a pilgrimage to Varanasi. Despite their deep desire to visit this sacred place, the journey proved physically challenging and logistically complex.
+                  </p>
+                  <p className="text-lg text-gray-700 mb-6">
+                    Recognizing that many elders share this desire but face similar barriers, Priya assembled a team of travel experts, healthcare professionals, and spiritual guides to create pilgrimage experiences specifically designed for elderly travelers.
+                  </p>
+                  <p className="text-lg text-gray-700">
+                    Today, Sacred Routes offers carefully curated journeys to India's most significant pilgrimage sites, with every detail tailored to ensure comfort, safety, and spiritual fulfillment for our elderly pilgrims.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
           
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-sacred-dark mb-6">Join Our Community</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Whether you're a pilgrim seeking spiritual growth, a family member helping a loved one fulfill their travel dreams, or a spiritual guide interested in working with us, we welcome you to the Sacred Routes community.
-            </p>
-            <Button>
-              Register Now
-            </Button>
+          {/* Our Values */}
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold mb-10 text-sacred-dark text-center">Our Core Values</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white shadow-md rounded-xl p-8 text-center">
+                <div className="bg-sacred-light w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Heart className="h-10 w-10 text-sacred-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-sacred-dark">Compassion</h3>
+                <p className="text-gray-700">
+                  We approach every aspect of our work with genuine care for our pilgrims' physical, emotional, and spiritual wellbeing.
+                </p>
+              </div>
+              
+              <div className="bg-white shadow-md rounded-xl p-8 text-center">
+                <div className="bg-sacred-light w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users className="h-10 w-10 text-sacred-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-sacred-dark">Dignity</h3>
+                <p className="text-gray-700">
+                  We honor the wisdom and experience of our elderly pilgrims, ensuring they are treated with the utmost respect throughout their journey.
+                </p>
+              </div>
+              
+              <div className="bg-white shadow-md rounded-xl p-8 text-center">
+                <div className="bg-sacred-light w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Shield className="h-10 w-10 text-sacred-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-sacred-dark">Safety</h3>
+                <p className="text-gray-700">
+                  We prioritize the wellbeing of our pilgrims with comprehensive safety measures, medical support, and carefully planned accommodations.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Contact Section */}
+          <div>
+            <h2 className="text-3xl font-bold mb-10 text-sacred-dark text-center">Contact Us</h2>
+            <div className="bg-sacred-light rounded-xl shadow-lg overflow-hidden">
+              <div className="grid md:grid-cols-2">
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold mb-6 text-sacred-dark">Get In Touch</h3>
+                  <div className="space-y-6">
+                    <div className="flex items-start">
+                      <MapPin className="h-6 w-6 text-sacred-primary mr-4 mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-lg">Our Office</h4>
+                        <p className="text-gray-700">123 Pilgrimage Way, New Delhi, 110001, India</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <Phone className="h-6 w-6 text-sacred-primary mr-4 mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-lg">Phone</h4>
+                        <p className="text-gray-700">+91 (11) 1234 5678</p>
+                        <p className="text-gray-500 text-sm mt-1">Available 7 days a week, 8am-8pm IST</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <Mail className="h-6 w-6 text-sacred-primary mr-4 mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-lg">Email</h4>
+                        <p className="text-gray-700">info@sacredroutes.com</p>
+                        <p className="text-gray-500 text-sm mt-1">We usually respond within 24 hours</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-sacred-dark p-8 text-white">
+                  <h3 className="text-2xl font-bold mb-6 text-sacred-secondary">Send Us a Message</h3>
+                  <form className="space-y-4">
+                    <div>
+                      <label className="block text-lg mb-2">Your Name</label>
+                      <input type="text" className="w-full p-3 rounded-lg bg-sacred-dark border border-gray-600 text-white" />
+                    </div>
+                    <div>
+                      <label className="block text-lg mb-2">Your Email</label>
+                      <input type="email" className="w-full p-3 rounded-lg bg-sacred-dark border border-gray-600 text-white" />
+                    </div>
+                    <div>
+                      <label className="block text-lg mb-2">Your Message</label>
+                      <textarea rows={4} className="w-full p-3 rounded-lg bg-sacred-dark border border-gray-600 text-white"></textarea>
+                    </div>
+                    <Button className="bg-sacred-primary hover:bg-sacred-primary/90 text-white py-6 text-lg w-full">
+                      Send Message
+                    </Button>
+                    <Button variant="outline" className="bg-transparent border-gray-600 text-white hover:bg-gray-700 py-6 text-lg w-full">
+                      Request a Call Back
+                    </Button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
     </Layout>
   );
 };
 
-export default AboutUs;
+export default About;
