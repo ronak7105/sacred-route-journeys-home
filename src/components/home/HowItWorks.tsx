@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const steps = [
@@ -17,7 +16,7 @@ const steps = [
   {
     number: '03',
     title: 'Pre-Journey Preparation',
-    description: 'Join virtual meetups with fellow pilgrims and guides. We'll help you prepare physically and spiritually, and connect your family to the tracking dashboard.',
+    description: 'Join virtual meetups with fellow pilgrims and guides. We\'ll help you prepare physically and spiritually, and connect your family to the tracking dashboard.',
     image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'
   },
   {
