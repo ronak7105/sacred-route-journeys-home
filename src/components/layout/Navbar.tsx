@@ -1,11 +1,19 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Heart, MapPin, User } from 'lucide-react';
+import { Heart, MapPin, User, LogIn } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <nav className="bg-white shadow-md py-4" aria-label="Main navigation">
@@ -21,12 +29,16 @@ const Navbar = () => {
           <Link to="/pilgrimages" className="text-lg font-medium text-sacred-dark hover:text-sacred-primary transition-colors">
             Pilgrimages
           </Link>
-          <Link to="/community" className="text-lg font-medium text-sacred-dark hover:text-sacred-primary transition-colors">
-            Community
-          </Link>
-          <Link to="/safety" className="text-lg font-medium text-sacred-dark hover:text-sacred-primary transition-colors">
-            Safety & Support
-          </Link>
+          {isLoggedIn && (
+            <Link to="/trips" className="text-lg font-medium text-sacred-dark hover:text-sacred-primary transition-colors">
+              Current & Upcoming Trips
+            </Link>
+          )}
+          {isLoggedIn && (
+            <Link to="/vote" className="text-lg font-medium text-sacred-dark hover:text-sacred-primary transition-colors">
+              Vote on Next Trip
+            </Link>
+          )}
           <Link to="/about" className="text-lg font-medium text-sacred-dark hover:text-sacred-primary transition-colors">
             About Us
           </Link>
@@ -34,12 +46,33 @@ const Navbar = () => {
 
         {/* Auth Buttons - Desktop */}
         <div className="hidden md:flex items-center space-x-4">
-          <Button variant="outline" className="text-lg">
-            <User className="mr-2 h-5 w-5" /> Sign In
-          </Button>
-          <Button className="text-lg bg-sacred-primary hover:bg-sacred-primary/90">
-            Register
-          </Button>
+          {!isLoggedIn ? (
+            <>
+              <Button variant="outline" className="text-lg" asChild>
+                <Link to="/login">
+                  <LogIn className="mr-2 h-5 w-5" /> Sign In
+                </Link>
+              </Button>
+              <Button className="text-lg bg-sacred-primary hover:bg-sacred-primary/90" asChild>
+                <Link to="/register">Register</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="outline" className="text-lg" asChild>
+                <Link to="/dashboard">
+                  <User className="mr-2 h-5 w-5" /> My Dashboard
+                </Link>
+              </Button>
+              <Button 
+                variant="outline" 
+                className="text-lg text-red-500 border-red-500 hover:bg-red-50"
+                onClick={handleLogout}
+              >
+                Log Out
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -87,18 +120,22 @@ const Navbar = () => {
           >
             Pilgrimages
           </Link>
-          <Link 
-            to="/community" 
-            className="block p-4 text-xl font-medium text-sacred-dark hover:bg-sacred-light rounded-md"
-          >
-            Community
-          </Link>
-          <Link 
-            to="/safety" 
-            className="block p-4 text-xl font-medium text-sacred-dark hover:bg-sacred-light rounded-md"
-          >
-            Safety & Support
-          </Link>
+          {isLoggedIn && (
+            <Link 
+              to="/trips" 
+              className="block p-4 text-xl font-medium text-sacred-dark hover:bg-sacred-light rounded-md"
+            >
+              Current & Upcoming Trips
+            </Link>
+          )}
+          {isLoggedIn && (
+            <Link 
+              to="/vote" 
+              className="block p-4 text-xl font-medium text-sacred-dark hover:bg-sacred-light rounded-md"
+            >
+              Vote on Next Trip
+            </Link>
+          )}
           <Link 
             to="/about" 
             className="block p-4 text-xl font-medium text-sacred-dark hover:bg-sacred-light rounded-md"
@@ -107,12 +144,33 @@ const Navbar = () => {
           </Link>
 
           <div className="pt-4 space-y-2">
-            <Button variant="outline" className="w-full text-lg justify-center">
-              <User className="mr-2 h-5 w-5" /> Sign In
-            </Button>
-            <Button className="w-full text-lg bg-sacred-primary hover:bg-sacred-primary/90">
-              Register
-            </Button>
+            {!isLoggedIn ? (
+              <>
+                <Button variant="outline" className="w-full text-lg justify-center" asChild>
+                  <Link to="/login">
+                    <LogIn className="mr-2 h-5 w-5" /> Sign In
+                  </Link>
+                </Button>
+                <Button className="w-full text-lg bg-sacred-primary hover:bg-sacred-primary/90" asChild>
+                  <Link to="/register">Register</Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outline" className="w-full text-lg justify-center" asChild>
+                  <Link to="/dashboard">
+                    <User className="mr-2 h-5 w-5" /> My Dashboard
+                  </Link>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full text-lg text-red-500 border-red-500 hover:bg-red-50"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
